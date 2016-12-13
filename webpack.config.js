@@ -3,7 +3,6 @@ const {
 } = require('@webpack-blocks/webpack2');
 
 const babel = require('@webpack-blocks/babel6');
-const devServer = require('@webpack-blocks/dev-server2');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const basePlugins = [
@@ -26,13 +25,18 @@ const productionPlugins = [
 ];
 
 module.exports = createConfig([
-  entryPoint('./src/index.js'),
-  setOutput('./build/bundle.js'),
+  entryPoint({
+    main: './src/index.js',
+    'injection-script': './src/script.js',
+  }),
+  setOutput({
+    filename: '[name].js',
+    path: __dirname + '/build',
+  }),
   babel(),
   addPlugins(basePlugins),
   env('development', [
     sourceMaps(),
-    devServer(),
   ]),
   env('production', [
     addPlugins(productionPlugins),

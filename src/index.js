@@ -1,7 +1,5 @@
-const injectedScript = require('!raw-loader!./script.js');
-
-chrome.browserAction.onClicked.addListener(tab => {
+chrome.browserAction.onClicked.addListener(() => {
   chrome.tabs.executeScript({
-    code: injectedScript
-  })
+    file: 'injection-script.js',
+  });
 });

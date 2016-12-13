@@ -4,9 +4,10 @@
   "description": "🔬",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "NODE_ENV=production webpack --config webpack.config.js",
-    "start": "NODE_ENV=development webpack-dev-server --config webpack.config.js"
+    "test": "tape -r babel-register './src/**/*.spec.js' | faucet",
+    "test:watch": "tape-watch -r babel-register './src/**/*.spec.js' | faucet",
+    "build": "NODE_ENV=production webpack",
+    "start": "NODE_ENV=development webpack --watch"
   },
   "repository": {
     "type": "git",
@@ -21,11 +22,21 @@
   "homepage": "https://github.com/winkerVSbecks/svg-x-ray#readme",
   "dependencies": {
     "@webpack-blocks/babel6": "^0.1.1",
-    "@webpack-blocks/dev-server2": "^0.1.0-beta",
+    "@webpack-blocks/css-modules": "^0.1.1",
+    "@webpack-blocks/extract-text": "^0.1.1",
     "@webpack-blocks/webpack2": "^0.1.0-beta",
+    "babel-eslint": "^7.1.1",
     "babel-preset-es2015": "^6.18.0",
     "copy-webpack-plugin": "^4.0.1",
+    "eslint": "^3.12.2",
+    "extract-loader": "^0.1.0",
+    "faucet": "^0.0.1",
+    "html-webpack-plugin": "^2.24.1",
     "ramda": "^0.22.1",
-    "raw-loader": "^0.5.1"
+    "raw-loader": "^0.5.1",
+    "svgpath": "^2.2.0",
+    "tachyons": "^4.6.1",
+    "tape": "^4.6.3",
+    "tape-watch": "^2.2.4"
   }
 }
