@@ -21,10 +21,10 @@ function makeCircle([x, y]) {
 
   circle.setAttributeNS(null, 'cx', x);
   circle.setAttributeNS(null, 'cy', y);
-  circle.setAttributeNS(null, 'r', '1%');
+  circle.setAttributeNS(null, 'r', '1.5%');
   circle.setAttributeNS(null, 'fill', '#fff');
   circle.setAttributeNS(null, 'stroke', '#FF41B4');
-  circle.setAttributeNS(null, 'stroke-width', '0.5%');
+  circle.setAttributeNS(null, 'stroke-width', '0.75%');
 
   return circle;
 }

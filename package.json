@@ -6,8 +6,12 @@
   "scripts": {
     "test": "tape -r babel-register './src/**/*.spec.js' | faucet",
     "test:watch": "tape-watch -r babel-register './src/**/*.spec.js' | faucet",
-    "build": "NODE_ENV=production webpack",
-    "start": "NODE_ENV=development webpack --watch"
+    "clean": "rm -rf build",
+    "clear": "node webpack/clear-console.js",
+    "start": "yarn clear && NODE_ENV=development webpack-dev-server --config webpack/webpack.config.js",
+    "build": "yarn clean && NODE_ENV=production webpack --config webpack/webpack.config.js",
+    "start:website": "yarn clear && NODE_ENV=development webpack-dev-server --config webpack/webpack.site.config.js",
+    "build:website": "yarn clean && NODE_ENV=production webpack --config webpack/webpack.site.config.js"
   },
   "repository": {
     "type": "git",
@@ -23,6 +27,7 @@
   "dependencies": {
     "@webpack-blocks/babel6": "^0.1.1",
     "@webpack-blocks/css-modules": "^0.1.1",
+    "@webpack-blocks/dev-server2": "^0.1.0-beta",
     "@webpack-blocks/extract-text": "^0.1.1",
     "@webpack-blocks/webpack2": "^0.1.0-beta",
     "babel-eslint": "^7.1.1",

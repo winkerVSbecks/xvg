@@ -42,5 +42,9 @@ const xRay = R.compose(
   getPaths,
 );
 
-const svgs = document.querySelectorAll('svg');
-R.forEach(xRay, svgs);
+const cssQuery = R.invoker(1, 'querySelectorAll');
+
+R.compose(
+  R.forEach(xRay),
+  cssQuery('svg'),
+)(document);
