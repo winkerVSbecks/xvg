@@ -13,13 +13,6 @@
   dependencies:
     webpack-merge "^0.14.1"
 
-"@webpack-blocks/css-modules":
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/@webpack-blocks/css-modules/-/css-modules-0.1.1.tgz#e59f8c58e1e37392c789ee59cbdd1d0a31e144ed"
-  dependencies:
-    css-loader "^0.25.0"
-    style-loader "^0.13.1"
-
 "@webpack-blocks/dev-server2":
   version "0.1.0-beta"
   resolved "https://registry.yarnpkg.com/@webpack-blocks/dev-server2/-/dev-server2-0.1.0-beta.tgz#c132f186cc82970fd5d3605fc5811b80d3619785"
@@ -27,11 +20,11 @@
     webpack "^2.1.0-beta.25"
     webpack-dev-server "^2.1.0-beta.11"
 
-"@webpack-blocks/extract-text":
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/@webpack-blocks/extract-text/-/extract-text-0.1.1.tgz#1ece7fe03c54bc962a8c7aa7819824596903de58"
+"@webpack-blocks/extract-text2":
+  version "0.1.0-beta"
+  resolved "https://registry.yarnpkg.com/@webpack-blocks/extract-text2/-/extract-text2-0.1.0-beta.tgz#1aaf6fe1f2ab3a7581374edfe9bf88e80d61cf25"
   dependencies:
-    extract-text-webpack-plugin "^1.0.1"
+    extract-text-webpack-plugin "^2.0.0-beta.4"
 
 "@webpack-blocks/webpack2":
   version "0.1.0-beta"
@@ -1768,15 +1761,9 @@ extglob@^0.3.1:
   dependencies:
     is-extglob "^1.0.0"
 
-extract-loader:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/extract-loader/-/extract-loader-0.1.0.tgz#a1c146915241cc486d5292263c7555d5aa19766e"
-  dependencies:
-    loader-utils "^0.2.16"
-
-extract-text-webpack-plugin@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/extract-text-webpack-plugin/-/extract-text-webpack-plugin-1.0.1.tgz#c95bf3cbaac49dc96f1dc6e072549fbb654ccd2c"
+extract-text-webpack-plugin@^2.0.0-beta.4:
+  version "2.0.0-beta.4"
+  resolved "https://registry.yarnpkg.com/extract-text-webpack-plugin/-/extract-text-webpack-plugin-2.0.0-beta.4.tgz#d32393069e7d90c8318d48392302618b56bc1ba9"
   dependencies:
     async "^1.5.0"
     loader-utils "^0.2.3"

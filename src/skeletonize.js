@@ -9,6 +9,10 @@ export function drawOutline({ node }) {
   node.setAttribute('stroke', '#5E2CA5');
   node.setAttribute('stroke-width', '1%');
   node.setAttribute('fill', 'none');
+  node.setAttribute(
+    'style',
+    'stroke: #5E2CA5; fill: none; stroke-width: 1%;',
+  );
 }
 
 const handleDescriptions = {
@@ -56,6 +60,10 @@ export const drawHandles = R.converge(
       handleNode.setAttribute('stroke-width', '0.5%');
       handleNode.setAttribute('fill', 'none');
       handleNode.setAttribute('d', handle);
+      handleNode.setAttribute(
+        'style',
+        'stroke: #FF41B4; fill: none; stroke-width: 0.5%',
+      );
 
       path.parentElement.appendChild(handleNode);
     }
