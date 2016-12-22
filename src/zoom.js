@@ -6,7 +6,7 @@ export function addZoomStyles() {
   style.sheet.insertRule(
     `.xvg-inspect {
       transform: scale3d(1, 1, 1);
-      transition: transform 0.2s ease-in-out;
+      transition: transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
       cursor: zoom-in;
       z-index: 1;
     }`,
@@ -14,7 +14,7 @@ export function addZoomStyles() {
   );
 
   style.sheet.insertRule(
-    '.xvg-inspect:hover { transform: scale3d(1.75, 1.75, 1.75); }',
+    '.xvg-inspect:hover { transform: scale3d(2, 2, 2); }',
     1,
   );
 }

@@ -40,6 +40,7 @@
     "svgpath": "^2.2.0",
     "tachyons": "^4.6.1",
     "tape": "^4.6.3",
-    "tape-watch": "^2.2.4"
+    "tape-watch": "^2.2.4",
+    "webpack-bundle-analyzer": "^2.2.0"
   }
 }

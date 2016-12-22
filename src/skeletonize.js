@@ -8,10 +8,10 @@ import { hasControlPoints, getCommandOrigin } from './utils';
 export function drawOutline({ node }) {
   node.setAttribute('stroke', '#5E2CA5');
   node.setAttribute('stroke-width', '1%');
-  node.setAttribute('fill', 'none');
+  node.setAttribute('fill', 'transparent');
   node.setAttribute(
     'style',
-    'stroke: #5E2CA5; fill: none; stroke-width: 1%;',
+    'stroke: #5E2CA5; fill: transparent; stroke-width: 1%;',
   );
 }
 
@@ -58,11 +58,11 @@ export const drawHandles = R.converge(
       const handleNode = path.cloneNode();
       handleNode.setAttribute('stroke', '#FF41B4');
       handleNode.setAttribute('stroke-width', '0.5%');
-      handleNode.setAttribute('fill', 'none');
+      handleNode.setAttribute('fill', 'transparent');
       handleNode.setAttribute('d', handle);
       handleNode.setAttribute(
         'style',
-        'stroke: #FF41B4; fill: none; stroke-width: 0.5%',
+        'stroke: #FF41B4; fill: transparent; stroke-width: 0.5%',
       );
 
       path.parentElement.appendChild(handleNode);
