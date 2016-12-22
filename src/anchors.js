@@ -7,7 +7,7 @@ const removeArcSweeps = R.ifElse(isArc,
   R.identity,
 );
 
-const getSegmentPoints = R.compose(
+const getSegmentAnchors = R.compose(
   R.flatten,
   R.map(R.tail),
   R.addIndex(R.map)(expand),
@@ -21,27 +21,31 @@ function makeCircle([x, y]) {
 
   circle.setAttributeNS(null, 'cx', x);
   circle.setAttributeNS(null, 'cy', y);
-  circle.setAttributeNS(null, 'r', '1.5%');
+  circle.setAttributeNS(null, 'r', '1%');
   circle.setAttributeNS(null, 'fill', '#fff');
   circle.setAttributeNS(null, 'stroke', '#FF41B4');
-  circle.setAttributeNS(null, 'stroke-width', '0.75%');
+  circle.setAttributeNS(null, 'stroke-width', '0.5%');
+  circle.setAttribute(
+    'style',
+    'stroke: #FF41B4; fill: #fff; stroke-width: 0.75%',
+  );
 
   return circle;
 }
 
-const makePoints = R.compose(
+const makeAnchors = R.compose(
   R.compose(
     R.map(makeCircle),
     R.splitEvery(2),
   ),
-  getSegmentPoints,
+  getSegmentAnchors,
 );
 
-export const drawPoints = R.converge(
+export const drawAnchors = R.converge(
   (circles, path) => {
     circles.forEach(c => {
       path.parentElement.appendChild(c);
     });
   },
-  [makePoints, R.prop('node')],
+  [makeAnchors, R.prop('node')],
 );

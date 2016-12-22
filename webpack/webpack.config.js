@@ -1,3 +1,4 @@
+const path = require('path');
 const {
   addPlugins, createConfig, entryPoint, env, setOutput, sourceMaps, webpack,
 } = require('@webpack-blocks/webpack2');
@@ -15,7 +16,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const basePlugins = [
   new HtmlWebpackPlugin({
     inject: true,
-    template: 'src/index.html',
+    template: 'src/__tests__/test.html',
   }),
   new webpack.DefinePlugin({
     'process.env': JSON.stringify(process.env || 'development'),
@@ -50,23 +51,17 @@ module.exports = createConfig([
   env('development', [
     devServer(),
     sourceMaps(),
-    entryPoint('./src/index.dev.js'),
-    setOutput('./build/bundle.js'),
-  ]),
-  env('website', [
-    devServer(),
-    sourceMaps(),
-    entryPoint('./website/index.js'),
+    entryPoint('./src/__tests__/visual-test.js'),
     setOutput('./build/bundle.js'),
   ]),
   env('production', [
     entryPoint({
       main: './src/index.js',
-      'x-ray': './src/x-ray.js',
+      'xvg': './src/xvg.js',
     }),
     setOutput({
       filename: '[name].js',
-      path: __dirname + '/build',
+      path: path.join(__dirname, '../build'),
     }),
     addPlugins(productionPlugins),
   ]),

@@ -1,12 +1,10 @@
 const {
   addPlugins, createConfig, entryPoint, env, setOutput, sourceMaps, webpack,
-} = require('@webpack-blocks/webpack2');
-
-const CopyWebpackPlugin = require('copy-webpack-plugin');
+  customConfig } = require('@webpack-blocks/webpack2');
 const devServer = require('@webpack-blocks/dev-server2');
-
-const babel = require('@webpack-blocks/babel6');
+const extractText = require('@webpack-blocks/extract-text2');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const babel = require('@webpack-blocks/babel6');
 
 const basePlugins = [
   new HtmlWebpackPlugin({
@@ -16,15 +14,13 @@ const basePlugins = [
   new webpack.DefinePlugin({
     'process.env': JSON.stringify(process.env || 'development'),
   }),
-  new CopyWebpackPlugin([
-    { from: 'manifest.json' },
-    { from: 'icons/icon19x.png' },
-    { from: 'icons/icon38x.png' },
-  ]),
+  // require('postcss-import')(),
+  // require('autoprefixer')({ browsers: ['last 2 versions'] }),
 ];
 
 const productionPlugins = [
   new webpack.LoaderOptionsPlugin({
+    '-svgo': true,
     minimize: true,
     debug: false,
   }),
@@ -43,27 +39,23 @@ const productionPlugins = [
 module.exports = createConfig([
   babel(),
   addPlugins(basePlugins),
+  entryPoint('./website/index.js'),
+  setOutput('./build/bundle.js'),
   env('development', [
     devServer(),
+    extractText(),
     sourceMaps(),
-    entryPoint('./src/index.dev.js'),
-    setOutput('./build/bundle.js'),
-  ]),
-  env('website', [
-    devServer(),
-    sourceMaps(),
-    entryPoint('./website/index.js'),
-    setOutput('./build/bundle.js'),
   ]),
   env('production', [
-    entryPoint({
-      main: './src/index.js',
-      'x-ray': './src/x-ray.js',
-    }),
-    setOutput({
-      filename: '[name].js',
-      path: __dirname + '/build',
-    }),
+    extractText(),
     addPlugins(productionPlugins),
   ]),
+  // customConfig({
+  //   module: {
+  //     loaders: [{
+  //       test: /^tachyons$/,
+  //       loaders: ['style-loader', 'css-loader?minimize'],
+  //     }],
+  //   },
+  // }),
 ]);

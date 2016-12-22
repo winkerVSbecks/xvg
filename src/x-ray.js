@@ -1,7 +1,7 @@
 import R from 'ramda';
 import svgpath from 'svgpath';
 import { drawOutline, drawHandles } from './skeletonize';
-import { drawPoints } from './points';
+import { drawAnchors } from './anchors';
 import { drawArcEllipses } from './ellipses';
 
 const toAbsolute = R.invoker(0, 'abs');
@@ -31,20 +31,11 @@ const skeletonizePath = R.juxt([
   drawOutline,
   drawHandles,
   drawArcEllipses,
-  // TODO: Draw circles!
-  // Ellipses are unable to specify the exact orientation of the ellipse (if, for example, you wanted to draw an ellipse tilted at a 45 degree angle), but can be rotated by using the transform attribute.
-  drawPoints,
+  drawAnchors,
 ]);
 
-const xRay = R.compose(
+export const xRay = R.compose(
   R.forEach(skeletonizePath),
   R.map(parseSegments),
   getPaths,
 );
-
-const cssQuery = R.invoker(1, 'querySelectorAll');
-
-R.compose(
-  R.forEach(xRay),
-  cssQuery('svg'),
-)(document);
