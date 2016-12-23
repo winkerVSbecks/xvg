@@ -1,7 +1,7 @@
 {
   "name": "xvg",
   "version": "1.0.0",
-  "description": "🔬",
+  "description": "🔬 debug SVG paths in the browser",
   "main": "index.js",
   "scripts": {
     "test": "tape -r babel-register './src/**/*.spec.js' | faucet",
@@ -41,6 +41,7 @@
     "tachyons": "^4.6.1",
     "tape": "^4.6.3",
     "tape-watch": "^2.2.4",
-    "webpack-bundle-analyzer": "^2.2.0"
+    "webpack-bundle-analyzer": "^2.2.0",
+    "webpack-dev-server": "^1.16.2"
   }
 }
