@@ -1,5 +1,5 @@
 import test from 'tape';
-import { expand } from './expand';
+import { expand } from '../expand';
 
 const squareSegments = [
   ['M', 10, 10],
