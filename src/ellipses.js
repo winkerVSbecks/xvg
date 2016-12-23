@@ -5,9 +5,13 @@ function makeArc(d) {
   const arc = createElement('path');
 
   arc.setAttributeNS(null, 'd', d);
-  arc.setAttributeNS(null, 'fill', '#fff');
+  arc.setAttributeNS(null, 'fill', 'transparent');
   arc.setAttributeNS(null, 'stroke', '#96CCFF');
   arc.setAttributeNS(null, 'stroke-width', '0.25%');
+  arc.setAttribute(
+    'style',
+    'stroke: #96CCFF; fill: transparent; stroke-width: 0.25%',
+  );
 
   return arc;
 }

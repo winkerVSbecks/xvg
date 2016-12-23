@@ -1,6 +1,7 @@
 const path = require('path');
 const {
   addPlugins, createConfig, entryPoint, env, setOutput, sourceMaps, webpack,
+  customConfig,
 } = require('@webpack-blocks/webpack2');
 
 const CopyWebpackPlugin = require('copy-webpack-plugin');
@@ -65,4 +66,7 @@ module.exports = createConfig([
     }),
     addPlugins(productionPlugins),
   ]),
+  customConfig({
+    performance: { hints: false },
+  }),
 ]);
