@@ -2,12 +2,14 @@ import R from 'ramda';
 import svgpath from 'svgpath';
 import { drawOutline, drawHandles } from './skeletonize';
 import { drawAnchors } from './anchors';
-import { drawArcEllipses } from './ellipses';
+import { drawArcGuides } from './arc-guides';
 
 const toAbsolute = R.invoker(0, 'abs');
+const unshort = R.invoker(0, 'unshort');
 
 const getPathSegments = R.compose(
   R.prop('segments'),
+  unshort,
   toAbsolute,
   svgpath,
   getPathDescription,
@@ -27,15 +29,15 @@ function getPaths(svg) {
   return svg.querySelectorAll('path');
 }
 
-const skeletonizePath = R.juxt([
+const drawDebugArtifacts = R.juxt([
   drawOutline,
   drawHandles,
-  drawArcEllipses,
+  drawArcGuides,
   drawAnchors,
 ]);
 
 export const xRay = R.compose(
-  R.forEach(skeletonizePath),
+  R.forEach(drawDebugArtifacts),
   R.map(parseSegments),
   getPaths,
 );

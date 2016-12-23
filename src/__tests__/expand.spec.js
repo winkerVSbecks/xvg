@@ -1,59 +1,39 @@
 import test from 'tape';
 import { expand } from '../expand';
+import { hardEdgePath, pathWithArc } from './fixtures';
 
-const squareSegments = [
-  ['M', 10, 10],
-  ['H', 90 ],
-  ['V', 90],
-  ['H', 10],
-  ['H', 10],
-  ['V', 20],
-  ['V', 30],
-  ['L', 10, 10],
-];
-
-const arcSegments = [
-  ['M', 80, 230],
-  ['A', 45, 45, 0, 0, 1, 125, 275],
-  ['H', 30],
-  ['A', 45, 45, 0, 0, 1, 125, 275],
-  ['V', 30],
-  ['L', 125, 230],
-  ['Z'],
-];
-
-test('Expand: should add y coordinate for H segment', (t) => {
+test('expand H segment', (t) => {
   t.deepEqual(
-    expand(['H', 10], 3, squareSegments),
+    expand(['H', 10], 3, hardEdgePath),
     ['H', 10, 90],
   );
 
   t.deepEqual(
-    expand(['H', 90], 1, squareSegments),
+    expand(['H', 90], 1, hardEdgePath),
     ['H', 90, 10],
   );
 
   t.deepEqual(
-    expand(['H', 30], 2, arcSegments),
+    expand(['H', 30], 2, pathWithArc),
     ['H', 30, 275],
   );
 
   t.end();
 });
 
-test('Expand: should add x coordinate for V segment', (t) => {
+test('expand V segment', (t) => {
   t.deepEqual(
-    expand(['V', 90], 2, squareSegments),
+    expand(['V', 90], 2, hardEdgePath),
     ['V', 90, 90],
   );
 
   t.deepEqual(
-    expand(['V', 30], 6, squareSegments),
+    expand(['V', 30], 6, hardEdgePath),
     ['V', 10, 30],
   );
 
   t.deepEqual(
-    expand(['V', 30], 4, arcSegments),
+    expand(['V', 30], 4, pathWithArc),
     ['V', 125, 30],
   );
 
