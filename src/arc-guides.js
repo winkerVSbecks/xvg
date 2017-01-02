@@ -1,7 +1,7 @@
 import R from 'ramda';
 import { getCommandOrigin, isArc, createElement } from './utils';
 
-function makeArc(d) {
+function makeArcGuide(d) {
   const arc = createElement('path');
 
   arc.setAttributeNS(null, 'd', d);
@@ -25,7 +25,6 @@ const reflect = R.compose(
 );
 
 const makeArcs = R.compose(
-  makeArc,
   R.join(' '),
   R.useWith((moveToOrigin, arc) => {
     return [
@@ -37,7 +36,7 @@ const makeArcs = R.compose(
   }, [R.prepend('M'), R.identity]),
 );
 
-const makeEllipse = R.converge(
+const makeArcGuideDef = R.converge(
   makeArcs,
   [
     R.converge(
@@ -48,22 +47,22 @@ const makeEllipse = R.converge(
   ],
 );
 
-const makeEllipses = R.compose(
+export const makeArcGuides = R.compose(
   R.reject(R.isNil),
   R.addIndex(R.map)(
     R.ifElse(isArc,
-      makeEllipse,
+      makeArcGuideDef,
       R.always(undefined),
     ),
   ),
   R.prop('segments'),
 );
 
-export const drawArcEllipses = R.converge(
+export const drawArcGuides = R.converge(
   (ellipses, path) => {
     ellipses.forEach(e => {
       path.parentElement.insertBefore(e, path);
     });
   },
-  [makeEllipses, R.prop('node')],
+  [R.pipe(makeArcGuides, R.map(makeArcGuide)), R.prop('node')],
 );

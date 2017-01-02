@@ -2,18 +2,18 @@ import R from 'ramda';
 import { expand } from './expand';
 import { createElement, isArc, removeZ } from './utils';
 
-const removeArcSweeps = R.ifElse(isArc,
-  R.compose(R.prepend('A'), R.takeLast(2)),
+export const convertArcToEndPoint = R.ifElse(isArc,
+  R.juxt([R.nth(0), R.nth(6), R.nth(7)]),
   R.identity,
 );
 
-const getSegmentAnchors = R.compose(
-  R.flatten,
+export const getSegmentAnchors = R.compose(
+  R.splitEvery(2),
+  R.unnest,
   R.map(R.tail),
   R.addIndex(R.map)(expand),
-  R.map(removeArcSweeps),
+  R.map(convertArcToEndPoint),
   removeZ,
-  R.prop('segments'),
 );
 
 function makeCircle([x, y]) {
@@ -34,11 +34,9 @@ function makeCircle([x, y]) {
 }
 
 const makeAnchors = R.compose(
-  R.compose(
-    R.map(makeCircle),
-    R.splitEvery(2),
-  ),
+  R.map(makeCircle),
   getSegmentAnchors,
+  R.prop('segments'),
 );
 
 export const drawAnchors = R.converge(

@@ -42,7 +42,7 @@ const getHandleDescription = R.ifElse(hasControlPoints,
   R.always(''),
 );
 
-const getHandleDescriptions = R.compose(
+export const getHandleDescriptions = R.compose(
   R.join(' '),
   R.addIndex(R.map)(getHandleDescription),
   R.addIndex(R.map)(expand),
