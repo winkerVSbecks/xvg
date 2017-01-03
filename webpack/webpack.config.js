@@ -15,17 +15,16 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 })();
 
 const basePlugins = [
-  new HtmlWebpackPlugin({
-    inject: true,
-    template: 'src/__tests__/test.html',
-  }),
   new webpack.DefinePlugin({
     'process.env': JSON.stringify(process.env || 'development'),
   }),
   new CopyWebpackPlugin([
     { from: 'manifest.json' },
-    { from: 'icons/icon19x.png' },
-    { from: 'icons/icon38x.png' },
+    { from: 'icons/icon19.png' },
+    { from: 'icons/icon38.png' },
+    { from: 'icons/icon16.png' },
+    { from: 'icons/icon48.png' },
+    { from: 'icons/icon128.png' },
   ]),
 ];
 
@@ -54,10 +53,16 @@ module.exports = createConfig([
     sourceMaps(),
     entryPoint('./src/__tests__/visual-test.js'),
     setOutput('./build/bundle.js'),
+    addPlugins([
+      new HtmlWebpackPlugin({
+        inject: true,
+        template: 'src/__tests__/test.html',
+      }),
+    ]),
   ]),
   env('production', [
     entryPoint({
-      main: './src/index.js',
+      'xvg-injector': './src/index.js',
       'xvg': './src/xvg.js',
     }),
     setOutput({

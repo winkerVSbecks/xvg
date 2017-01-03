@@ -4,10 +4,9 @@ import { xRay } from '../src/x-ray';
 
 const cssQuery = R.invoker(1, 'querySelectorAll');
 
-setTimeout(() =>
-  R.compose(
-    R.forEach(xRay),
-    cssQuery('.js-icon'),
-  )(document),
-  1000,
-);
+R.compose(
+  R.addIndex(R.forEach)((node, idx) => {
+    setTimeout(() => xRay(node), 600 + idx * 300);
+  }),
+  cssQuery('.js-icon'),
+)(document);
