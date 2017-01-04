@@ -1,12 +1,3 @@
-/*
-  ✅ anchors.js
-  ✅ arc-guides.js
-  ✅ expand.js
-  ✅ skeletonize.js
-  ✅ utils.js
-  x-ray.js
-*/
-
 export const complexPath = [
   ['M', 10, 18.374],
   ['L', -1.533, -1.533],

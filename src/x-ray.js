@@ -1,8 +1,9 @@
 import R from 'ramda';
 import svgpath from 'svgpath';
 import { drawOutline, drawHandles } from './skeletonize';
-import { drawAnchors } from './anchors';
+import { drawPathAnchors, drawPolygonAnchors } from './anchors';
 import { drawArcGuides } from './arc-guides';
+import { getAttribute, getNodes } from './utils';
 
 const toAbsolute = R.invoker(0, 'abs');
 const unshort = R.invoker(0, 'unshort');
@@ -12,7 +13,7 @@ const getPathSegments = R.compose(
   unshort,
   toAbsolute,
   svgpath,
-  getPathDescription,
+  getAttribute('d'),
 );
 
 const parseSegments = R.compose(
@@ -21,23 +22,35 @@ const parseSegments = R.compose(
   ),
 );
 
-function getPathDescription(path) {
-  return path.getAttribute('d');
-}
-
-function getPaths(svg) {
-  return svg.querySelectorAll('path');
-}
-
-const drawDebugArtifacts = R.juxt([
+const drawPathDebugArtifacts = R.juxt([
   drawOutline,
   drawHandles,
   drawArcGuides,
-  drawAnchors,
+  drawPathAnchors,
 ]);
 
-export const xRay = R.compose(
-  R.forEach(drawDebugArtifacts),
+const xRayPaths = R.compose(
+  R.forEach(drawPathDebugArtifacts),
   R.map(parseSegments),
-  getPaths,
+  getNodes('path'),
 );
+
+const parsePoints = R.compose(
+  R.converge(R.assoc('points'),
+    [getAttribute('points'), R.objOf('node')],
+  ),
+);
+
+const xRayPolygons = R.compose(
+  R.forEach(R.juxt([
+    drawOutline,
+    drawPolygonAnchors,
+  ])),
+  R.map(parsePoints),
+  getNodes('polygon, polyline'),
+);
+
+export const xRay = R.juxt([
+  xRayPaths,
+  xRayPolygons,
+]);

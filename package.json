@@ -1,23 +1,26 @@
 {
   "name": "xvg",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "🔬 debug SVG paths in the browser",
   "main": "index.js",
   "scripts": {
     "test": "tape -r babel-register './src/**/*.spec.js' | faucet",
     "test:watch": "tape-watch -r babel-register './src/**/*.spec.js' | faucet",
     "clean": "rm -rf build",
-    "clear": "node webpack/clear-console.js",
-    "start": "npm run clear && NODE_ENV=development webpack-dev-server --config webpack/webpack.config.js",
-    "build": "npm run clean && NODE_ENV=production webpack -p --config webpack/webpack.config.js",
-    "start:site": "npm run clear && NODE_ENV=development webpack-dev-server --config webpack/webpack.site.config.js --progress --colors",
-    "build:site": "npm run clean && NODE_ENV=production webpack -p --config webpack/webpack.site.config.js"
+    "clear": "node config/clear-console.js",
+    "start": "npm run clear && NODE_ENV=development webpack-dashboard -- webpack-dev-server --config config/webpack.config.js",
+    "build": "npm run clean && NODE_ENV=production webpack -p --config config/webpack.config.js",
+    "start:site": "npm run clear && NODE_ENV=development webpack-dashboard -- webpack-dev-server --config config/webpack.site.config.js --progress --colors",
+    "build:site": "npm run clean && NODE_ENV=production webpack -p --config config/webpack.site.config.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/winkerVSbecks/svg-x-ray.git"
   },
-  "keywords": ["SVG", "debug"],
+  "keywords": [
+    "SVG",
+    "debug"
+  ],
   "author": "Varun Vachhar",
   "license": "MIT",
   "bugs": {
@@ -43,6 +46,7 @@
     "tape-watch": "^2.2.4",
     "webpack": "2.2.0-rc.3",
     "webpack-bundle-analyzer": "^2.2.0",
+    "webpack-dashboard": "^0.2.1",
     "webpack-dev-server": "2.2.0-rc.0"
   }
 }
