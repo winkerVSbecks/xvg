@@ -33,17 +33,34 @@ function makeCircle([x, y]) {
   return circle;
 }
 
-const makeAnchors = R.compose(
+const makePathAnchors = R.compose(
   R.map(makeCircle),
   getSegmentAnchors,
   R.prop('segments'),
 );
 
-export const drawAnchors = R.converge(
-  (circles, path) => {
-    circles.forEach(c => {
-      path.parentElement.appendChild(c);
-    });
-  },
-  [makeAnchors, R.prop('node')],
+export const getPolygonAnchors = R.compose(
+  R.splitEvery(2),
+  R.split(/,|\s+/),
+  R.replace(/,/g, ' '),
 );
+
+const makePolygonAnchors = R.compose(
+  R.map(makeCircle),
+  getPolygonAnchors,
+  R.prop('points'),
+);
+
+function draw(makeAnchors) {
+  return R.converge(
+    (circles, path) => {
+      circles.forEach(c => {
+        path.parentElement.appendChild(c);
+      });
+    },
+    [makeAnchors, R.prop('node')],
+  );
+}
+
+export const drawPolygonAnchors = draw(makePolygonAnchors);
+export const drawPathAnchors = draw(makePathAnchors);

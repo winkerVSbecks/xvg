@@ -18,3 +18,11 @@ export const getCommandOrigin = R.compose(
 );
 
 export const removeZ = R.filter(R.compose(R.not, R.equals('Z'), R.head));
+
+export function getAttribute(type) {
+  return path => path.getAttribute(type);
+}
+
+export function getNodes(type) {
+  return (svg) => svg.querySelectorAll(type);
+}
