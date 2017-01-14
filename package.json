@@ -1,16 +1,17 @@
 {
   "name": "xvg",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "🔬 debug SVG paths in the browser",
   "main": "index.js",
   "scripts": {
-    "test": "tape -r babel-register './src/**/*.spec.js' | faucet",
-    "test:watch": "tape-watch -r babel-register './src/**/*.spec.js' | faucet",
+    "test": "NODE_ENV=test tape -r babel-register './src/**/*.spec.js' | faucet",
+    "test:watch": "NODE_ENV=test tape-watch -r babel-register './src/**/*.spec.js' | faucet",
     "clean": "rm -rf build",
-    "clear": "node config/clear-console.js",
-    "start": "npm run clear && NODE_ENV=development webpack-dashboard -- webpack-dev-server --config config/webpack.config.js",
+    "postclean": "node config/clear-console.js",
+    "start": "npm run clean && NODE_ENV=development webpack-dashboard -- webpack-dev-server --config config/webpack.config.js",
     "build": "npm run clean && NODE_ENV=production webpack -p --config config/webpack.config.js",
-    "start:site": "npm run clear && NODE_ENV=development webpack-dashboard -- webpack-dev-server --config config/webpack.site.config.js --progress --colors",
+    "build:profile": "npm run clean && NODE_ENV=production webpack -p --config config/webpack.config.js --profile --json > stats.json && webpack-bundle-analyzer stats.json",
+    "start:site": "npm run clean && NODE_ENV=development webpack-dashboard -- webpack-dev-server --config config/webpack.site.config.js --progress --colors",
     "build:site": "npm run clean && NODE_ENV=production webpack -p --config config/webpack.site.config.js"
   },
   "repository": {
@@ -33,6 +34,7 @@
     "@webpack-blocks/extract-text2": "^0.3.0",
     "@webpack-blocks/webpack2": "^0.3.0",
     "babel-eslint": "^7.1.1",
+    "babel-plugin-ramda": "^1.1.6",
     "babel-preset-es2015": "^6.18.0",
     "copy-webpack-plugin": "^4.0.1",
     "eslint": "^3.12.2",

@@ -1,11 +1,5 @@
 import R from 'ramda';
 
-const SVG_NS = 'http://www.w3.org/2000/svg';
-
-export function createElement(type) {
-  return document.createElementNS(SVG_NS, type);
-}
-
 export const isArc = R.compose(R.equals('A'), R.head);
 
 export const hasControlPoints = R.test(/(q|t|c|s)/ig);
