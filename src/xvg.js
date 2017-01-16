@@ -2,10 +2,42 @@ import R from 'ramda';
 import { xRay } from './x-ray';
 import { attachZoom } from './zoom';
 
+const removeNulls = R.filter(R.complement(R.isNil));
 const cssQuery = R.invoker(1, 'querySelectorAll');
 
-R.compose(
-  R.forEach(xRay),
-  R.tap(attachZoom),
-  cssQuery('svg'),
-)(document);
+const getSubDocument = R.ifElse(R.has('contentDocument'),
+  R.prop('contentDocument'),
+  R.invoker(0, 'getSVGDocument'),
+);
+
+const findSvgElements = R.compose(
+  R.compose(
+    removeNulls,
+    R.flatten,
+  ),
+  R.map(cssQuery('svg')),
+  R.converge(R.concat, [
+    R.of,
+    R.compose(
+      removeNulls,
+      R.map(getSubDocument),
+      cssQuery('object, embed, iframe'),
+    ),
+  ]),
+);
+
+if (process.env.NODE_ENV === 'development') {
+  window.onload = function onload() {
+    R.compose(
+      R.forEach(xRay),
+      R.tap(attachZoom),
+      findSvgElements,
+    )(document);
+  };
+} else {
+  R.compose(
+    R.forEach(xRay),
+    R.tap(attachZoom),
+    findSvgElements,
+  )(document);
+}

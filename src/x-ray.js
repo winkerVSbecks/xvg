@@ -37,7 +37,7 @@ const xRayPaths = R.compose(
 
 const parsePoints = R.compose(
   R.converge(R.assoc('points'),
-    [getAttribute('points'), R.objOf('node')],
+    [R.prop('points'), R.objOf('node')],
   ),
 );
 

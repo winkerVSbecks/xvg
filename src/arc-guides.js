@@ -1,6 +1,7 @@
 import R from 'ramda';
 import { getCommandOrigin, isArc } from './utils';
 import { make } from './dom';
+import { expand } from './expand';
 
 const makeArcGuide = make('path', (d) => [
   ['d', d],
@@ -49,6 +50,7 @@ export const makeArcGuides = R.compose(
       R.always(undefined),
     ),
   ),
+  R.addIndex(R.map)(expand),
   R.prop('segments'),
 );
 
