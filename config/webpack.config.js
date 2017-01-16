@@ -11,10 +11,6 @@ const babel = require('@webpack-blocks/babel6');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const DashboardPlugin = require('webpack-dashboard/plugin');
 
-(function clearConsole() {
-  process.stdout.write(process.platform === 'win32' ? '\x1Bc' : '\x1B[2J\x1B[3J\x1B[H');
-})();
-
 const basePlugins = [
   new webpack.DefinePlugin({
     'process.env': JSON.stringify(process.env || 'development'),

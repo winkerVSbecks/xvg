@@ -1,20 +1,14 @@
 import R from 'ramda';
-import { getCommandOrigin, isArc, createElement } from './utils';
+import { getCommandOrigin, isArc } from './utils';
+import { make } from './dom';
 
-function makeArcGuide(d) {
-  const arc = createElement('path');
-
-  arc.setAttributeNS(null, 'd', d);
-  arc.setAttributeNS(null, 'fill', 'transparent');
-  arc.setAttributeNS(null, 'stroke', '#96CCFF');
-  arc.setAttributeNS(null, 'stroke-width', '0.25%');
-  arc.setAttribute(
-    'style',
-    'stroke: #96CCFF; fill: transparent; stroke-width: 0.25%',
-  );
-
-  return arc;
-}
+const makeArcGuide = make('path', (d) => [
+  ['d', d],
+  ['fill', 'transparent'],
+  ['stroke', '#96CCFF'],
+  ['stroke-width', '0.25%'],
+  ['style', 'stroke: #96CCFF; fill: transparent; stroke-width: 0.25%'],
+]);
 
 // 1 ↔️ 0
 const flip = R.ifElse(R.equals(0), R.always(1), R.always(0));

@@ -1,19 +1,23 @@
 import R from 'ramda';
 import { expand } from './expand';
 import { hasControlPoints, getCommandOrigin } from './utils';
+import { setAttribute } from './dom';
 
 /**
  * Draw outlines for a shape
  */
-export function drawOutline({ node }) {
-  node.setAttribute('stroke', '#5E2CA5');
-  node.setAttribute('stroke-width', '1%');
-  node.setAttribute('fill', 'transparent');
-  node.setAttribute(
-    'style',
-    'stroke: #5E2CA5; fill: transparent; stroke-width: 1%;',
-  );
-}
+export const drawOutline = R.compose(
+  R.juxt([
+    setAttribute('stroke', '#5E2CA5'),
+    setAttribute('stroke-width', '1%'),
+    setAttribute('fill', 'transparent'),
+    setAttribute(
+      'style',
+      'stroke: #5E2CA5; fill: transparent; stroke-width: 1%;',
+    ),
+  ]),
+  R.prop('node'),
+);
 
 const handleDescriptions = {
   'C': (s, o) => (
