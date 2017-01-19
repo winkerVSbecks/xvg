@@ -15,13 +15,17 @@ const basePlugins = [
   new webpack.DefinePlugin({
     'process.env': JSON.stringify(process.env || 'development'),
   }),
+];
+
+const devPlugins = [
+  new DashboardPlugin(),
+  new HtmlWebpackPlugin({
+    inject: true,
+    template: 'src/__tests__/test.html',
+  }),
   new CopyWebpackPlugin([
-    { from: 'manifest.json' },
-    { from: 'icons/icon19.png' },
-    { from: 'icons/icon38.png' },
-    { from: 'icons/icon16.png' },
-    { from: 'icons/icon48.png' },
-    { from: 'icons/icon128.png' },
+    { from: 'src/__tests__/svglogo.svg' },
+    { from: 'src/__tests__/kiwi.svg' },
   ]),
 ];
 
@@ -40,6 +44,14 @@ const productionPlugins = [
     screwIe8: true,
     sourceMap: false,
   }),
+  new CopyWebpackPlugin([
+    { from: 'manifest.json' },
+    { from: 'icons/icon19.png' },
+    { from: 'icons/icon38.png' },
+    { from: 'icons/icon16.png' },
+    { from: 'icons/icon48.png' },
+    { from: 'icons/icon128.png' },
+  ]),
 ];
 
 module.exports = createConfig([
@@ -50,13 +62,7 @@ module.exports = createConfig([
     sourceMaps(),
     entryPoint('./src/__tests__/visual-test.js'),
     setOutput('./build/bundle.js'),
-    addPlugins([
-      new DashboardPlugin(),
-      new HtmlWebpackPlugin({
-        inject: true,
-        template: 'src/__tests__/test.html',
-      }),
-    ]),
+    addPlugins(devPlugins),
   ]),
   env('production', [
     entryPoint({

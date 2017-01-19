@@ -33,11 +33,7 @@ const makePathAnchors = R.compose(
   R.prop('segments'),
 );
 
-export const getPolygonAnchors = R.compose(
-  R.splitEvery(2),
-  R.split(/,|\s+/),
-  R.replace(/,/g, ' '),
-);
+export const getPolygonAnchors = R.map(R.props(['x', 'y']));
 
 const makePolygonAnchors = R.compose(
   R.map(makeCircle),
