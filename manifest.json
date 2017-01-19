@@ -3,9 +3,11 @@
   "name": "xvg",
   "short_name": "xvg",
   "description": "An extension for debugging SVG paths by converting them to outlines and displaying anchors, control points, handles and arc ellipses",
-  "version": "1.1.0",
+  "version": "1.2.0",
+  "options_page": "index.html",
   "permissions": [
-    "activeTab"
+    "activeTab",
+    "storage"
   ],
   "background": {
     "persistent": false,

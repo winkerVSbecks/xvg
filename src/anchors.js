@@ -2,6 +2,7 @@ import R from 'ramda';
 import { expand } from './expand';
 import { isArc, removeZ } from './utils';
 import { make } from './dom';
+import settings from './settings';
 
 export const convertArcToEndPoint = R.ifElse(isArc,
   R.juxt([R.nth(0), R.nth(6), R.nth(7)]),
@@ -20,11 +21,11 @@ export const getSegmentAnchors = R.compose(
 const makeCircle = make('circle', ([x, y]) => [
   ['cx', x],
   ['cy', y],
-  ['r', '1%'],
-  ['fill', '#fff'],
-  ['stroke', '#FF41B4'],
-  ['stroke-width', '0.5%'],
-  ['style', 'stroke: #FF41B4; fill: #fff; stroke-width: 0.75%'],
+  ['r', settings.xvg.xvgCpSize],
+  ['fill', settings.xvg.xvgCpFill],
+  ['stroke', settings.xvg.xvgCpStroke],
+  ['stroke-width', settings.xvg.xvgCpSize],
+  ['style', `stroke: ${settings.xvg.xvgCpStroke}; fill: ${settings.xvg.xvgCpFill}; stroke-width: ${settings.xvg.xvgCpSize}`],
 ]);
 
 const makePathAnchors = R.compose(

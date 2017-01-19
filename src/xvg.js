@@ -1,6 +1,7 @@
 import R from 'ramda';
 import { xRay } from './x-ray';
 import { attachZoom } from './zoom';
+import settings from './settings';
 
 const removeNulls = R.filter(R.complement(R.isNil));
 const cssQuery = R.invoker(1, 'querySelectorAll');
@@ -35,9 +36,12 @@ if (process.env.NODE_ENV === 'development') {
     )(document);
   };
 } else {
-  R.compose(
-    R.forEach(xRay),
-    R.tap(attachZoom),
-    findSvgElements,
-  )(document);
+  chrome.storage.sync.get(settings.xvg, userSettings => {
+    settings.set(userSettings);
+    R.compose(
+      R.forEach(xRay),
+      R.tap(attachZoom),
+      findSvgElements,
+    )(document);
+  });
 }

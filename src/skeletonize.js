@@ -2,21 +2,24 @@ import R from 'ramda';
 import { expand } from './expand';
 import { hasControlPoints, getCommandOrigin } from './utils';
 import { setAttribute } from './dom';
+import settings from './settings';
 
 /**
  * Draw outlines for a shape
  */
-export const drawOutline = R.compose(
-  R.juxt([
-    setAttribute('stroke', '#5E2CA5'),
-    setAttribute('stroke-width', '1%'),
-    setAttribute('fill', 'transparent'),
-    setAttribute(
-      'style',
-      'stroke: #5E2CA5; fill: transparent; stroke-width: 1%;',
-    ),
-  ]),
-  R.prop('node'),
+export const drawOutline = R.converge(R.call,
+  [
+    () => R.juxt([
+      setAttribute('stroke', settings.xvg.xvgOutlineColour),
+      setAttribute('stroke-width', settings.xvg.xvgOutlineSize),
+      setAttribute('fill', 'transparent'),
+      setAttribute(
+        'style',
+        `stroke: ${settings.xvg.xvgOutlineColour}; fill: transparent; stroke-width: ${settings.xvg.xvgOutlineSize};`,
+      ),
+    ]),
+    R.prop('node'),
+  ],
 );
 
 const handleDescriptions = {
@@ -60,13 +63,13 @@ export const drawHandles = R.converge(
   (handle, path) => {
     if (handle) {
       const handleNode = path.cloneNode();
-      handleNode.setAttribute('stroke', '#FF41B4');
-      handleNode.setAttribute('stroke-width', '0.5%');
+      handleNode.setAttribute('stroke', settings.xvg.xvgHandleColour);
+      handleNode.setAttribute('stroke-width', settings.xvg.xvgHandleSize);
       handleNode.setAttribute('fill', 'transparent');
       handleNode.setAttribute('d', handle);
       handleNode.setAttribute(
         'style',
-        'stroke: #FF41B4; fill: transparent; stroke-width: 0.5%',
+        `stroke: ${settings.xvg.xvgHandleColour}; fill: transparent; stroke-width: ${settings.xvg.xvgHandleSize}`,
       );
 
       path.parentElement.appendChild(handleNode);
