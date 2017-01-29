@@ -3,3 +3,6 @@
 <img src="xvg.gif" width="400" height="300" />
 
 A Chrome extension for debugging SVG paths by converting them to outlines and displaying anchors, control points, handles and arc ellipses.
+
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/winkerVSbecks/xvg.svg)](https://greenkeeper.io/)
