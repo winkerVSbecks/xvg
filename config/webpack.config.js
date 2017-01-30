@@ -34,6 +34,11 @@ const productionPlugins = [
     minimize: true,
     debug: false,
   }),
+  new HtmlWebpackPlugin({
+    inject: true,
+    template: 'src/options/options.html',
+    excludeChunks: ['xvg-injector', 'xvg'],
+  }),
   new webpack.optimize.UglifyJsPlugin({
     compress: {
       warnings: false,
@@ -51,6 +56,7 @@ const productionPlugins = [
     { from: 'icons/icon16.png' },
     { from: 'icons/icon48.png' },
     { from: 'icons/icon128.png' },
+    { from: 'icons/favicon.ico' },
   ]),
 ];
 
@@ -67,7 +73,8 @@ module.exports = createConfig([
   env('production', [
     entryPoint({
       'xvg-injector': './src/index.js',
-      'xvg': './src/xvg.js',
+      xvg: './src/xvg.js',
+      options: './src/options/options.js',
     }),
     setOutput({
       filename: '[name].js',

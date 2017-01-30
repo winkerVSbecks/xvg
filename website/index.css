@@ -1,1 +1,8 @@
 @import '../node_modules/tachyons/css/tachyons.css';
+
+.slide-in {
+  transition: transform 200ms ease-in-out;
+  transform: translate3d(0, -100%, 0);
+}
+
+.slide-in.active { transform: translate3d(0, 0, 0); }

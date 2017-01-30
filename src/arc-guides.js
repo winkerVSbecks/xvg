@@ -2,13 +2,14 @@ import R from 'ramda';
 import { getCommandOrigin, isArc } from './utils';
 import { make } from './dom';
 import { expand } from './expand';
+import settings from './settings';
 
 const makeArcGuide = make('path', (d) => [
   ['d', d],
   ['fill', 'transparent'],
-  ['stroke', '#96CCFF'],
+  ['stroke', settings.xvg.xvgArcGuideColour],
   ['stroke-width', '0.25%'],
-  ['style', 'stroke: #96CCFF; fill: transparent; stroke-width: 0.25%'],
+  ['style', `stroke: ${settings.xvg.xvgArcGuideColour}; fill: transparent; stroke-width: ${settings.xvg.xvgArcGuideSize}`],
 ]);
 
 // 1 ↔️ 0
